@@ -1,15 +1,31 @@
 <script type="text/javascript" src="../../../">
-
 </script>
 <!-- link for CSS when using the tree as a Dom element -->
 <link rel="stylesheet" type="text/css" href="../../bower_components/angular-tree-control/css/tree-control.css">
 <!-- link for CSS when using the tree as an attribute -->
 <link rel="stylesheet" type="text/css" href="../../bower_components/angular-tree-control/css/tree-control-attribute.css">
-<treecontrol class="tree-classic"
+<br>
+
+<form class="navbar-form pull-left" ng-submit="submit()" ng-controller="State12Ctrl">
+    <div class="form-inline">
+    <label class = "control-label" for = "r"> Enter:   </label>
+    <input class="form-control" id = "r" type="input" ng-model="text" name="text" />
+
+    <input class = "btn btn-danger" type="submit" id="submit" value="Go!" />
+    </div>
+    <br>
+    <pre> <treecontrol class="tree-classic" tree-model="dataForTheTree"  options="treeOptions"  on-selection="showSelected(node)" selected-node="node1">{{node.name}}</treecontrol><br></pre>
+  </form>
+
+
+<!--<treecontrol class="tree-classic"
              tree-model="dataForTheTree"
              options="treeOptions"
              on-selection="showSelected(node)"
              selected-node="node1">
   {{node.name}}
 </treecontrol>
+
+
+
 
