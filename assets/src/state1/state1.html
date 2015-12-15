@@ -1,31 +1,120 @@
-<script type="text/javascript" src="../../../">
-</script>
-<!-- link for CSS when using the tree as a Dom element -->
-<link rel="stylesheet" type="text/css" href="../../bower_components/angular-tree-control/css/tree-control.css">
-<!-- link for CSS when using the tree as an attribute -->
-<link rel="stylesheet" type="text/css" href="../../bower_components/angular-tree-control/css/tree-control-attribute.css">
-<br>
+<style>
+  /* angular.treeview */
 
-<form class="navbar-form pull-left" ng-submit="submit()" ng-controller="State12Ctrl">
-    <div class="form-inline">
-    <label class = "control-label" for = "r"> Enter:   </label>
-    <input class="form-control" id = "r" type="input" ng-model="text" name="text" />
+  div[data-angular-treeview] {
+    /* prevent user selection */
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
-    <input class = "btn btn-danger" type="submit" id="submit" value="Go!" />
+    /* default */
+    font-family: Tahoma;
+    font-size:13px;
+    color: #555;
+    text-decoration: none;
+  }
+
+  div[data-tree-model] ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+    overflow: hidden;
+  }
+
+  div[data-tree-model] li {
+    position: relative;
+    padding: 0 0 0 20px;
+    line-height: 20px;
+  }
+
+  div[data-tree-model] li .expanded {
+    padding: 1px 10px;
+    background-image: url("http://cfile23.uf.tistory.com/image/205B973A50C13F4B19D9BD");
+    background-repeat: no-repeat;
+  }
+
+  div[data-tree-model] li .collapsed {
+    padding: 1px 10px;
+    background-image: url("http://cfile23.uf.tistory.com/image/1459193A50C13F4B1B05FB");
+    background-repeat: no-repeat;
+  }
+
+  div[data-tree-model] li .normal {
+    padding: 1px 10px;
+    background-image: url("http://cfile23.uf.tistory.com/image/165B663A50C13F4B196CCA");
+    background-repeat: no-repeat;
+  }
+
+  div[data-tree-model] li i, div[data-tree-model] li span {
+    cursor: pointer;
+  }
+
+  div[data-tree-model] li .selected {
+    background-color: #aaddff;
+    font-weight: bold;
+    padding: 1px 5px;
+  }
+
+
+  /* example */
+  label {
+    display: inline-block;
+    width: 30px;
+    padding: 0 10px;
+    font-weight: bold;
+  }
+
+  .button_panel {
+    margin:10px 0 30px 0; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;
+  }
+
+  .input_panel {
+    padding: 10px 5px;
+  }
+
+  .done_button {
+    margin-top: 10px;
+  }
+</style>
+  <div ng-controller="State12Ctrl">
+
+    <div class="button_panel">
+      <input type="button" value="Изменить" data-ng-click="mode = 'editNode'" data-ng-disabled="!mytree.currentNode" />
+      <input type="button" value="Добавить" data-ng-click="mode = 'addChild'" data-ng-disabled="!mytree.currentNode" />
+
+      <div class="input_panel" data-ng-show="mode == 'editNode'">
+        <h4>Selected Node</h4>
+        <label>ID</label> <input data-ng-model="mytree.currentNode.id" disabled/><br />
+        <label>Label</label> <input data-ng-model="mytree.currentNode.label" /><br />
+        <input type="button" value="DONE" class="done_button" data-ng-click="done()">
+      </div>
+
+      <div class="input_panel" data-ng-show="mode == 'addChild'">
+        <h4>New Node</h4>
+        <label>ID</label> <input data-ng-model="mytree.currentNode.id" /><br />
+        <label>Label</label> <input data-ng-model="temporaryNode.label" /><br />
+        <input type="button" value="DONE" class="done_button" data-ng-click="addChildDone()">
+      </div>
     </div>
-    <br>
-    <pre> <treecontrol class="tree-classic" tree-model="dataForTheTree"  options="treeOptions"  on-selection="showSelected(node)" selected-node="node1">{{node.name}}</treecontrol><br></pre>
-  </form>
-
-
-<!--<treecontrol class="tree-classic"
-             tree-model="dataForTheTree"
-             options="treeOptions"
-             on-selection="showSelected(node)"
-             selected-node="node1">
-  {{node.name}}
-</treecontrol>
 
 
 
+    <!--
+      [TREE attribute]
+      angular-treeview: the treeview directive
+      tree-id : each tree's unique id.
+      tree-model : the tree model on $scope.
+      node-id : each node's id
+      node-label : each node's label
+      node-children: each node's children
+    -->
+    <div
+      data-angular-treeview="true"
+      data-tree-id="mytree"
+      data-tree-model="roleList">
+    </div>
 
+  </div>
